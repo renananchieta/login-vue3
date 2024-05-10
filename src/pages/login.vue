@@ -12,7 +12,7 @@
         max-width="448"
         rounded="lg"
       >
-        <div class="text-subtitle-1 text-medium-emphasis">Login</div>
+        <div class="text-subtitle-1 text-medium-emphasis">Email</div>
   
         <v-text-field
           v-model="form.email"
@@ -76,7 +76,7 @@
 <script setup>
 import api from '@/plugins/api';
 import { useAppStore } from '@/stores/app';
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 /**
@@ -90,6 +90,7 @@ const form = ref({
     device_name: ""
 });
 const token = ref("");
+const localStorageToken = ref("");
 
 const router = useRouter();
 const store = useAppStore();
@@ -97,7 +98,13 @@ const store = useAppStore();
 /**
  * Methods
  */
-const autenticacao = async() => {
+const autenticacao = () => {
+  baixarCookie().then(() => {
+    ajaxLogin();
+  });
+}
+
+const ajaxLogin = async() => {
     carregando.value = true;
 
     const userAgent = window.navigator.userAgent;
@@ -106,13 +113,13 @@ const autenticacao = async() => {
 
     await api.post('/autenticacao', form.value)
     .then((response) => {
-        token.value = response.data.token;
-        store.usuario.token = token.value;
-        store.usuario.nome = response.data.usuario.nome;
-        store.usuario.email = response.data.usuario.email;
-        console.log(store.usuario);
+      store.usuario.token = response.data.token;
+      store.usuario.nome = response.data.usuario.nome;
+      store.usuario.email = response.data.usuario.email;
 
-        router.push('/home');
+      localStorage.setItem('Authorization', store.usuario.token);
+
+      abrirSessaoOuUrl("/home");
     })
     .catch((error) => {
         console.log(error);
@@ -123,9 +130,46 @@ const autenticacao = async() => {
     })
 }
 
+const abrirSessaoOuUrl = (url) => {//usado na tela de login
+  if (typeof window.sessionStorage.url !== 'undefined') {
+    const endereco = window.sessionStorage.url
+    window.sessionStorage.removeItem('url')
+    router.push(endereco)
+  } else {
+    router.push(url)
+  }
+}
+
+const baixarCookie = async () => {
+  const url = import.meta.env.VITE_BASE_URL;
+  return await api.get(`${url}/sanctum/csrf-cookie`).catch(() => {
+    alert("Erro ao baixar cookie: Erro de comunicação com a rede");
+  });
+};
+
 /**
 * Hooks 
 */
+onBeforeMount(async() => {
+  if(store.usuario?.nome) return;
+
+  let params = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('Authorization')}`
+    }
+  };
+
+  api.get("/usuario-info", params)
+  .then((response) => {
+    console.log(response.data);
+    store.usuario.nome = response.data.nome;
+    store.usuario.email = response.data.email;
+    abrirSessaoOuUrl("/home")
+  })
+  .catch((erro) => {
+    console.log(erro)
+  })
+})
 
 
 </script>

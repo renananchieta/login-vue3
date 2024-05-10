@@ -8,12 +8,24 @@
               size="60" 
               color="surface-variant" 
               ></v-avatar>
+            <div >{{ store.usuario.nome }}</div>
             <div >{{ store.usuario.email }}</div>
         </v-sheet>
         <v-divider></v-divider>
-        <v-list-item link title="List Item 1"></v-list-item>
-        <v-list-item link title="List Item 2"></v-list-item>
-        <v-list-item link title="List Item 3"></v-list-item>
+        <v-list density="compact">
+            <v-list-item
+                v-for="(item, i) in items"
+                :key="i"
+                :value="item"
+                color="primary"
+            >
+                <template v-slot:prepend>
+                <v-icon :icon="item.icon"></v-icon>
+                </template>
+
+                <v-list-item-title v-text="item.text" @click="router.push(item.to)"></v-list-item-title>
+            </v-list-item>
+        </v-list>
 
         <template v-slot:append>
             <v-footer>
@@ -48,19 +60,25 @@ import { useRouter } from 'vue-router';
  */
 const store = useAppStore();
 const router = useRouter();
+const items = ref([
+    { text: 'Home', icon: 'mdi-home', to: "/home" },
+    { text: 'Audience', icon: 'mdi-account', to: "/audience" },
+    { text: 'Conversions', icon: 'mdi-flag', to: "/conversions" },
+]);
 
 /**
  * Methods
  */
- const logout = async() => {
+const logout = async() => {
     let params = {
       headers: {
-          Authorization: `Bearer ${store.usuario.token}`
+          Authorization: `Bearer ${localStorage.getItem('Authorization')}`
       }
     };
 
     await api.get("/logout", params)
-    .then((response) => {
+    .then(() => {
+        localStorage.clear();
         router.push("/login");
     })
     .catch((error) => {

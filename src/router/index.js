@@ -19,6 +19,7 @@ const router = createRouter({
 const isUsuarioAutenticado = () => {
   const store = useAppStore();
   return store.usuario.nome ? true : false;
+  // return localStorage.getItem('Authorization') ? true : false;
 }
 
 router.beforeEach((to, from, next) => {
@@ -38,8 +39,10 @@ router.beforeEach((to, from, next) => {
 
 const possuiPermissao = () => {
   const store = useAppStore();
-  if (store.usuario.token) return true;
+  if (store.usuario.nome) return true;
   else return false;
+
+  // return localStorage.getItem('Authorization') ? true : false;
 }
 
 export default router

@@ -158,45 +158,20 @@
 import api from '@/plugins/api';
 import NavBar from './layouts/NavBar.vue';
 import { onMounted, ref } from 'vue';
-import { useAppStore } from '@/stores/app';
 
 /**
  * Data
  */
-const store = useAppStore();
 const carregando = ref(false);
-
 
 /**
  * Methods
  */
-const infoMe = () => {
-  carregando.value = true;
-
-  let params = {
-      headers: {
-          Authorization: `Bearer ${store.usuario.token}`
-      }
-  };
-
-  api.get('/me', params)
-  .then((response) => {
-    console.log(store.usuario);
-  })
-  .catch((error) => {
-      console.log(error);
-      carregando.value = false;
-  })
-  .finally(() => {
-      carregando.value = false;
-  })
-}
 
 /**
  * Hooks
  */
 onMounted(() => {
-  const store = useAppStore();
-  infoMe();
+
 })
 </script>
