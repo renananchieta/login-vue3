@@ -12,9 +12,7 @@ import { onBeforeUnmount } from 'vue';
 import { onBeforeMount } from 'vue';
 import NavBar from './components/layouts/NavBar.vue';
 import { useAppStore } from './stores/app';
-// import { useRoute } from 'vue-router';
 
-// const route = useRoute();
 const store = useAppStore();
 /**
  * 
@@ -29,23 +27,11 @@ const memorizarPagina = (e) => {
 }
 
 onBeforeMount(() => {
-  // exibirDrawer();
   window.addEventListener('beforeunload', memorizarPagina);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('beforeunload', memorizarPagina)
 });
-
-/**
- * 
- * Exibir o Navigation Drawer
- */
-
-const visibleDrawer = ref(false);
-
-// const exibirDrawer = () => {
-//   route.path == "/login" ? visibleDrawer.value = false : visibleDrawer.value = true;
-// }
 
 </script>
