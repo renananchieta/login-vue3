@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer>
+    <v-navigation-drawer class="float-left">
         <v-sheet 
           class="pa-4 centralizado"
           position="relative">
@@ -70,6 +70,8 @@ const items = ref([
  * Methods
  */
 const logout = async() => {
+    store.usuario.nome = '';
+
     let params = {
       headers: {
           Authorization: `Bearer ${localStorage.getItem('Authorization')}`

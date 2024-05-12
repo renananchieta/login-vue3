@@ -114,16 +114,16 @@ const ajaxLogin = async() => {
     await api.post('/autenticacao', form.value)
     .then((response) => {
       store.usuario.token = response.data.token;
-      store.usuario.nome = response.data.usuario.nome;
-      store.usuario.email = response.data.usuario.email;
+      store.usuario.nome = response.data.nome;
+      store.usuario.email = response.data.email;
 
       localStorage.setItem('Authorization', store.usuario.token);
 
       abrirSessaoOuUrl("/home");
     })
     .catch((error) => {
-        console.log(error);
         carregando.value = false;
+        alert(error.response.data.message);
     })
     .finally(() => {
         carregando.value = false;
