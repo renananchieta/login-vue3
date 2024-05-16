@@ -28,7 +28,7 @@
         </template>
     </v-navigation-drawer>
 
-    <v-app-bar :elevation="2">
+    <v-app-bar :elevation="2" density="compact">
         <template v-slot:prepend>
             <v-app-bar-nav-icon></v-app-bar-nav-icon>
         </template>

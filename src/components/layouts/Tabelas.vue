@@ -16,7 +16,7 @@
         <v-spacer></v-spacer>
         <v-dialog
           v-model="dialog"
-          max-width="500px"
+          max-width="1024px"
         >
           <template v-slot:activator="{ props }">
             <v-btn
@@ -36,58 +36,38 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    md="4"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Dessert name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                <v-form @submit.prevent="setSalvar()">
+                  <v-row>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                      v-model="defaultItem.nome"
+                      label="Nome completo"
+                      variant="outlined"
+                      density="compact"
+                      required/>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                      v-model="defaultItem.email"
+                      label="email"
+                      variant="outlined"
+                      density="compact"
+                      type="email"
+                      required/>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                      v-model="defaultItem.senha"
+                      label="Senha"
+                      variant="outlined"
+                      density="compact"
+                      type="password"
+                      required/>
+                    </v-col>
+                  </v-row>
+                </v-form>
               </v-container>
             </v-card-text>
 
@@ -103,9 +83,9 @@
               <v-btn
                 color="blue-darken-1"
                 variant="elevated"
-                @click="setSalvar"
+                type="submit"
               >
-                Salvar
+                {{buttonTitle}}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -158,10 +138,6 @@ const props = defineProps({
       default: () => [],
       required: true,
     },
-    defaultItem: {
-      default: () => {},
-      required: true,
-    },
 })
 
 /**
@@ -170,13 +146,22 @@ const props = defineProps({
 const dialog = ref(false);
 const dialogDelete = ref(false);
 const editedIndex = ref(-1);
-const editedItem = ref({});
-const defaultItem = ref({});
+const editedItem = ref({
+  nome: "",
+  email: "",
+  senha: ""
+});
+const defaultItem = ref({
+  nome: "",
+  email: "",
+  senha: ""
+});
 
 /**
  * Computed
  */
 const formTitle = computed(() => editedIndex.value === -1 ? 'Novo' : 'Edição');
+const buttonTitle = computed(() => editedIndex.value === -1 ? 'Salvar' : 'Alterar');
 
 /**
  * Watch
@@ -196,7 +181,7 @@ watch(() => dialogDelete,
  */
 const emit = defineEmits(["salvar", "editar", "deletar"]);
 const setSalvar = () => {
-    emit("salvar", editedItem.value);z
+    emit("salvar", editedItem.value);
     close();
 };
 
