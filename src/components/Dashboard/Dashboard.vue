@@ -1,7 +1,45 @@
 <template>
-    <v-container fluid>
+    <v-container>
+    <v-card width="612px">
+        <v-card-title>Dashboard 1</v-card-title>
+        <v-sheet
+        class="v-sheet--offset mx-auto"
+        color="cyan"
+        elevation="5"
+        max-width="calc(100% - 32px)"
+        rounded="lg"
+        >
+            <v-sparkline
+                :labels="labels"
+                :model-value="value2"
+                color="white"
+                line-width="2"
+                padding="16"
+            ></v-sparkline>
+        </v-sheet>
+
+        <v-card-text class="pt-0">
+            <div class="text-h6 font-weight-light mb-2">
+                Frequência Escolar 2024
+            </div>
+            <div class="subheading font-weight-light text-grey">
+                Last Campaign Performance
+            </div>
+            <v-divider class="my-2"></v-divider>
+            <v-icon
+                class="me-2"
+                size="small"
+            >
+                mdi-clock
+            </v-icon>
+            <span class="text-caption text-grey font-weight-light">last registration 26 minutes ago</span>
+        </v-card-text>
+    </v-card>
+  </v-container>
+  
+  <!-- <v-container fluid>
         <v-card>
-            <v-card-title>Dashboard 1</v-card-title>
+            <v-card-title>Dashboard 2</v-card-title>
             <v-sparkline
             :fill="fill"
             :gradient="selectedGradient"
@@ -122,44 +160,8 @@
             </v-col>
             </v-row>
         </v-card>
-  </v-container>
-  <v-container>
-    <v-card>
-        <v-card-title>Dashboard 2</v-card-title>
-        <v-sheet
-        class="v-sheet--offset mx-auto"
-        color="cyan"
-        elevation="12"
-        max-width="calc(100% - 32px)"
-        rounded="lg"
-        >
-            <v-sparkline
-                :labels="labels"
-                :model-value="value2"
-                color="white"
-                line-width="2"
-                padding="16"
-            ></v-sparkline>
-        </v-sheet>
-
-        <v-card-text class="pt-0">
-            <div class="text-h6 font-weight-light mb-2">
-                User Registrations
-            </div>
-            <div class="subheading font-weight-light text-grey">
-                Last Campaign Performance
-            </div>
-            <v-divider class="my-2"></v-divider>
-            <v-icon
-                class="me-2"
-                size="small"
-            >
-                mdi-clock
-            </v-icon>
-            <span class="text-caption text-grey font-weight-light">last registration 26 minutes ago</span>
-        </v-card-text>
-    </v-card>
-  </v-container>
+  </v-container> -->
+  
 </template>
 
 <script setup>
@@ -168,31 +170,39 @@ import { ref } from 'vue';
 /**
  * Data
  */
-const gradients = [
-    ['#222'],
-    ['#42b3f4'],
-    ['red', 'orange', 'yellow'],
-    ['purple', 'violet'],
-    ['#00c6ff', '#F0F', '#FF0'],
-    ['#f72047', '#ffd200', '#1feaea'],
-  ];
 
-const fill = ref(true);
-const selectedGradient = ref(gradients[4]);
+// const gradients = [
+//     ['#222'],
+//     ['#42b3f4'],
+//     ['red', 'orange', 'yellow'],
+//     ['purple', 'violet'],
+//     ['#00c6ff', '#F0F', '#FF0'],
+//     ['#f72047', '#ffd200', '#1feaea'],
+//   ];
+
+// const fill = ref(true);
+// const selectedGradient = ref(gradients[4]);
 // const gradients = ref();
-const padding = ref(8);
-const smooth = ref(true);
-const value = ref([0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]);
-const lineWidth = ref(2);
+// const padding = ref(8);
+// const smooth = ref(true);
+// const value = ref([0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]);
+// const lineWidth = ref(2);
+
+/**
+ * Dashboard 1
+ */
 const labels = ref([
-    '12am',
-    '3am',
-    '6am',
-    '9am',
-    '12pm',
-    '3pm',
-    '6pm',
-    '9pm',
+    'Fev',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Set',
+    'Out',
+    'Nov',
+    'Dez'
 ]);
 const value2 = ref([
     200,
@@ -203,6 +213,9 @@ const value2 = ref([
     460,
     250,
     240,
+    350,
+    870,
+    235
 ]);
 
 

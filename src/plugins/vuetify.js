@@ -36,7 +36,7 @@ const temaPadraoClaro = {
   dark: false,
   colors: {
       background: '#ECEFF1',
-      primary: '#FFEA00',
+      primary: '#01579B',
       botao: '#3700B3',
       // surface: '#EFEBE9',
       //     'primary-darken-1': '#3700B3',
@@ -53,7 +53,7 @@ const temaPadraoClaro = {
 
 export default createVuetify({
   theme: {
-    defaultTheme: 'temaPadraoEscuro',
+    defaultTheme: 'temaPadraoClaro',
     themes: {
         temaPadraoEscuro,
         temaPadraoClaro,
