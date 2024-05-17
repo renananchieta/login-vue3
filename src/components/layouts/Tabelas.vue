@@ -36,34 +36,38 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    md="12"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="nome"
+                <v-form @submit.prevent="setSalvar()">
+                  <v-row>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                      v-model="defaultItem.nome"
+                      label="Nome completo"
                       variant="outlined"
                       density="compact"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="12"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.calories"
+                      required/>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                      v-model="defaultItem.email"
                       label="email"
                       variant="outlined"
                       density="compact"
                       type="email"
-                      placeholder="exemplo@gmail.com"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                      required/>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                      v-model="defaultItem.senha"
+                      label="Senha"
+                      variant="outlined"
+                      density="compact"
+                      type="password"
+                      required/>
+                    </v-col>
+                  </v-row>
+                </v-form>
               </v-container>
             </v-card-text>
 
@@ -80,9 +84,9 @@
                 class="ma-2"
                 color="blue-darken-1"
                 variant="elevated"
-                @click="setSalvar"
+                type="submit"
               >
-                Salvar
+                {{buttonTitle}}
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -146,16 +150,19 @@ const editedIndex = ref(-1);
 const editedItem = ref({
   nome: "",
   email: "",
+  senha: ""
 });
 const defaultItem = ref({
   nome: "",
   email: "",
+  senha: ""
 });
 
 /**
  * Computed
  */
 const formTitle = computed(() => editedIndex.value === -1 ? 'Novo' : 'Edição');
+const buttonTitle = computed(() => editedIndex.value === -1 ? 'Salvar' : 'Alterar');
 
 /**
  * Watch

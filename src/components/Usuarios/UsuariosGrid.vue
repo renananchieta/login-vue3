@@ -5,29 +5,30 @@
       subtitulo="Pesquisa de usuários do sistema"
       titulo="Usuários"
       @pesquisar="pesquisar">
-      <v-row>
-        <v-col
-          cols="12"
-          md="12"
-        >
-          <v-text-field
-            v-model="descricao"
-            append-inner-icon="mdi-file-search-outline"
-            label="Descrição"
-            variant="outlined"
-            density="compact"
-          />
-        </v-col>
-      </v-row>
-    </Pesquisa>
-    <br>
-    <Tabelas
+         <v-row>
+            <v-col
+               cols="12"
+               md="12"
+            >
+               <v-text-field
+                  v-model="descricao"
+                  append-inner-icon="mdi-file-search-outline"
+                  label="Descrição"
+                  variant="outlined"
+                  density="compact"
+               />
+            </v-col>
+         </v-row>
+      </Pesquisa>
+      <br>
+      <Tabelas
       :headers="headers"
       :items="items"
       @deletar="deletarDados"
       @editar="editarDados"
-      @salvar="salvarDados"
-    />
+      @salvar="salvarDados">
+            
+      </Tabelas>
    </v-container>
 </template>
 
