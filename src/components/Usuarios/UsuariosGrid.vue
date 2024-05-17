@@ -24,7 +24,6 @@
     <Tabelas
       :headers="headers"
       :items="items"
-      :defaultItem="usuarios"
       @deletar="deletarDados"
       @editar="editarDados"
       @salvar="salvarDados"
@@ -49,10 +48,6 @@ const headers = ref([
    {title: "email", key: "email"},
    {title: "Ações", align: "end",key: "actions"},
 ]);
-const usuarios = ref({
-   nome: "",
-   email: "",
-})
 
 /**
  * Methods
@@ -60,13 +55,13 @@ const usuarios = ref({
  const pesquisar = () => {
   carregando.value = true;
 
-  let params = {
+   let params = {
       headers: {
          Authorization: `Bearer ${localStorage.getItem('Authorization')}`
       },
       params: {
          nome: descricao.value,
-    }
+      }
    };
 
    api.get('/admin/usuarios/grid', params)
@@ -83,12 +78,21 @@ const usuarios = ref({
 };
 
 const salvarDados = (item) => {
+   let params = {
+      headers: {
+         Authorization: `Bearer ${localStorage.getItem('Authorization')}`
+      },
+      params: {
+         nome: descricao.value,
+      }
+   };
+
    carregando.value = true;
    
    if (item.id) {
       editarDados(item);
    } else {
-      api.post('/admin/usuario/store', item)
+      api.post('/admin/usuario/store', item, params)
       .then((response) => {
          items.value.push(response.data);
       })

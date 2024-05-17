@@ -16,7 +16,7 @@
         <v-spacer></v-spacer>
         <v-dialog
           v-model="dialog"
-          max-width="500px"
+          max-width="620px"
         >
           <template v-slot:activator="{ props }">
             <v-btn
@@ -39,52 +39,28 @@
                 <v-row>
                   <v-col
                     cols="12"
-                    md="4"
+                    md="12"
                     sm="6"
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Dessert name"
+                      label="nome"
+                      variant="outlined"
+                      density="compact"
                     ></v-text-field>
                   </v-col>
                   <v-col
                     cols="12"
-                    md="4"
+                    md="12"
                     sm="6"
                   >
                     <v-text-field
                       v-model="editedItem.calories"
-                      label="Calories"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                    sm="6"
-                  >
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
+                      label="email"
+                      variant="outlined"
+                      density="compact"
+                      type="email"
+                      placeholder="exemplo@gmail.com"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -101,6 +77,7 @@
                 Cancel
               </v-btn>
               <v-btn
+                class="ma-2"
                 color="blue-darken-1"
                 variant="elevated"
                 @click="setSalvar"
@@ -158,10 +135,6 @@ const props = defineProps({
       default: () => [],
       required: true,
     },
-    defaultItem: {
-      default: () => {},
-      required: true,
-    },
 })
 
 /**
@@ -170,8 +143,14 @@ const props = defineProps({
 const dialog = ref(false);
 const dialogDelete = ref(false);
 const editedIndex = ref(-1);
-const editedItem = ref({});
-const defaultItem = ref({});
+const editedItem = ref({
+  nome: "",
+  email: "",
+});
+const defaultItem = ref({
+  nome: "",
+  email: "",
+});
 
 /**
  * Computed
@@ -196,7 +175,7 @@ watch(() => dialogDelete,
  */
 const emit = defineEmits(["salvar", "editar", "deletar"]);
 const setSalvar = () => {
-    emit("salvar", editedItem.value);z
+    emit("salvar", editedItem.value);
     close();
 };
 
