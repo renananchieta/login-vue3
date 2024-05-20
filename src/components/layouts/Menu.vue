@@ -22,7 +22,7 @@ const router = useRouter();
 const items = ([
     { text: 'Home', icon: 'mdi-home', to: "/home"},
     { text: 'Usuários', icon: 'mdi-account', to: "/usuarios"},
-    { text: 'Perfis', icon: 'mdi-flag', to: "/perfis"},
+    { text: 'Perfis', icon: 'mdi-flag', to: "/perfi"},
     { text: 'Ações', icon: 'mdi-flag', to: "/acoes"},
     { text: 'Query Builder', icon: 'mdi-flag', to: "/query-builder"},
     { text: 'Dashboard', icon: 'mdi-flag', to: "/dashboard"},

@@ -1,14 +1,14 @@
 <template>
-    <v-container>
+  <v-container>
     <v-card width="612px">
         <v-card-title>Dashboard 1</v-card-title>
         <v-sheet
-        class="v-sheet--offset mx-auto"
-        color="cyan"
-        elevation="5"
-        max-width="calc(100% - 32px)"
-        rounded="lg"
-        >
+          class="v-sheet--offset mx-auto"
+          color="cyan"
+          elevation="5"
+          max-width="calc(100% - 32px)"
+          rounded="lg"
+          >
             <v-sparkline
                 :labels="labels"
                 :model-value="value2"
@@ -161,6 +161,13 @@
             </v-row>
         </v-card>
   </v-container> -->
+
+  <v-container>
+    <v-card>
+        <v-card-title>Dashboard 2</v-card-title>
+        
+    </v-card>
+  </v-container>
   
 </template>
 
@@ -191,19 +198,7 @@ import { ref } from 'vue';
 /**
  * Dashboard 1
  */
-const labels = ref([
-    'Fev',
-    'Mar',
-    'Abr',
-    'Mai',
-    'Jun',
-    'Jul',
-    'Ago',
-    'Set',
-    'Out',
-    'Nov',
-    'Dez'
-]);
+const labels = ref(['Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']);
 const value2 = ref([
     200,
     675,
