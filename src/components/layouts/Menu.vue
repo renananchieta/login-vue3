@@ -26,6 +26,7 @@ const items = ([
     { text: 'Ações', icon: 'mdi-flag', to: "/acoes"},
     { text: 'Query Builder', icon: 'mdi-flag', to: "/query-builder"},
     { text: 'Dashboard', icon: 'mdi-flag', to: "/dashboard"},
+    { text: 'Mapas', icon: 'mdi-flag', to: "/mapas"},
 ]);
 </script>
 
