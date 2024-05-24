@@ -1,224 +1,72 @@
 <template>
-  <v-container>
-    <v-card width="612px">
-        <v-card-title>Dashboard 1</v-card-title>
-        <v-sheet
-          class="v-sheet--offset mx-auto"
-          color="cyan"
-          elevation="5"
-          max-width="calc(100% - 32px)"
-          rounded="lg"
-          >
-            <v-sparkline
-                :labels="labels"
-                :model-value="value2"
-                color="white"
-                line-width="2"
-                padding="16"
-            ></v-sparkline>
-        </v-sheet>
-
-        <v-card-text class="pt-0">
-            <div class="text-h6 font-weight-light mb-2">
-                Frequência Escolar 2024
-            </div>
-            <div class="subheading font-weight-light text-grey">
-                Last Campaign Performance
-            </div>
-            <v-divider class="my-2"></v-divider>
-            <v-icon
-                class="me-2"
-                size="small"
-            >
-                mdi-clock
-            </v-icon>
-            <span class="text-caption text-grey font-weight-light">last registration 26 minutes ago</span>
-        </v-card-text>
+    <v-card max-width="720px" class="mx-2 mt-4">
+        <v-card-title>Apresentação de Gráfico de Barras</v-card-title>
+        <canvas class="ma-4" id="myChart"></canvas>
     </v-card>
-  </v-container>
-  
-  <!-- <v-container fluid>
-        <v-card>
-            <v-card-title>Dashboard 2</v-card-title>
-            <v-sparkline
-            :fill="fill"
-            :gradient="selectedGradient"
-            :line-width="lineWidth"
-            :model-value="value"
-            :padding="padding"
-            :smooth="smooth"
-            auto-draw
-            ></v-sparkline>
-    
-            <v-divider></v-divider>
-    
-            <v-row>
-            <v-col
-                cols="12"
-                md="6"
-            >
-                <v-row
-                align="center"
-                class="fill-height"
-                >
-                <v-item-group
-                    v-model="selectedGradient"
-                    mandatory
-                >
-                    <v-row
-                    class="pt-6 pl-6"
-                    >
-                    <v-item
-                        v-for="(gradient, i) in gradients"
-                        :key="i"
-                        v-slot="{ active, toggle }"
-                        :value="gradient"
-                    >
-                        <v-card
-                        :style="{
-                            background: gradient.length > 1
-                            ? `linear-gradient(0deg, ${gradient})`
-                            : gradient[0],
-                            border: '2px solid',
-                            borderColor: active ? '#222' : 'white'
-                        }"
-                        class="me-2"
-                        height="30"
-                        width="30"
-                        @click="toggle"
-                        ></v-card>
-                    </v-item>
-                    </v-row>
-                </v-item-group>
-                </v-row>
-            </v-col>
-            </v-row>
-    
-            <v-row
-            class="mt-5"
-            >
-            <v-col
-                cols="2"
-            >
-                Filled
-            </v-col>
-            <v-col
-                cols="3"
-            >
-                <v-switch
-                v-model="fill"
-                class="switch"
-                ></v-switch>
-            </v-col>
-            <v-col
-                cols="3"
-            >
-                Line width
-            </v-col>
-            <v-col
-                cols="3"
-            >
-                <v-slider
-                v-model="lineWidth"
-                max="10"
-                min="0.1"
-                step="0.1"
-                thumb-label
-                ></v-slider>
-            </v-col>
-            </v-row>
-    
-            <v-row>
-            <v-col
-                cols="2"
-            >
-                Smooth
-            </v-col>
-            <v-col
-                cols="3"
-            >
-                <v-switch
-                v-model="smooth"
-                class="switch"
-                ></v-switch>
-            </v-col>
-            <v-col
-                cols="3"
-            >
-                Padding
-            </v-col>
-            <v-col
-                cols="3"
-            >
-                <v-slider
-                v-model="padding"
-                cols="3"
-                max="25"
-                min="0"
-                thumb-label
-                ></v-slider>
-            </v-col>
-            </v-row>
-        </v-card>
-  </v-container> -->
-
-  <v-container>
-    <v-card>
-        <v-card-title>Dashboard 2</v-card-title>
-        
-    </v-card>
-  </v-container>
-  
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import Chart from 'chart.js/auto';
 
 /**
  * Data
  */
 
-// const gradients = [
-//     ['#222'],
-//     ['#42b3f4'],
-//     ['red', 'orange', 'yellow'],
-//     ['purple', 'violet'],
-//     ['#00c6ff', '#F0F', '#FF0'],
-//     ['#f72047', '#ffd200', '#1feaea'],
-//   ];
-
-// const fill = ref(true);
-// const selectedGradient = ref(gradients[4]);
-// const gradients = ref();
-// const padding = ref(8);
-// const smooth = ref(true);
-// const value = ref([0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]);
-// const lineWidth = ref(2);
-
 /**
- * Dashboard 1
+ * Methods
  */
-const labels = ref(['Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']);
-const value2 = ref([
-    200,
-    675,
-    410,
-    390,
-    310,
-    460,
-    250,
-    240,
-    350,
-    870,
-    235
-]);
+const initialization = () => {
+    const data = {
+        labels: ['Fereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto'],
+        datasets: [{
+            label: 'Taxa de frequência de estudantes por mês em %',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            data1: [35, 25, 46, 39, 21, 91, 82],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)'
+            ],
+            borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+                'rgb(201, 203, 207)'
+            ],
+            borderWidth: 1
+        }]
+    };
 
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+    };
 
-</script>
+    const ctx = document.getElementById('myChart');
+    const myChart = new Chart(ctx, config);
 
-<style scoped>
-.switch {
-  position: relative;
-  top: -12px;
+    myChart;
 }
-</style>
+ 
+/**
+ * Hooks
+ */
+onMounted(() => {
+    initialization();
+})
+</script>
