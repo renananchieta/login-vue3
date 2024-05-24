@@ -1,6 +1,7 @@
 <template>
-    <v-navigation-drawer v-model="navBar" class="float-left">
+    <v-navigation-drawer v-model="navBar" class="float-left" color="blue-grey-darken-4" active-color="selectedColor">
         <v-sheet 
+          color="blue-grey-darken-4"
           class="pa-4 centralizado"
           position="relative">
             <v-avatar 
@@ -16,7 +17,7 @@
         <Menu />
 
         <template v-slot:append>
-            <v-footer>
+            <v-footer color="blue-grey-darken-4">
                 <v-btn
                   block
                   class="mx-auto"
@@ -29,7 +30,7 @@
         </template>
     </v-navigation-drawer>
 
-    <v-app-bar :elevation="2" density="compact">
+    <v-app-bar :elevation="2" density="compact" color="primary">
         <template v-slot:prepend>
             <v-app-bar-nav-icon @click="navBar = !navBar"></v-app-bar-nav-icon>
         </template>

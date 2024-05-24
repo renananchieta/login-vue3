@@ -2,6 +2,9 @@
 <v-data-table
     :headers="headers"
     :items="items"
+    density="comfortable"
+    hover
+    color="#F4511E"
   >
     <template v-slot:top>
       <v-toolbar
@@ -183,7 +186,7 @@ const defaultItem = ref({
  * Computed
  */
 const formTitle = computed(() => editedIndex.value === -1 ? 'Novo' : 'Edição');
-const buttonTitle = computed(() => editedIndex.value === -1 ? 'SALVAR' : 'ALTERARS');
+const buttonTitle = computed(() => editedIndex.value === -1 ? 'SALVAR' : 'ALTERAR');
 
 /**
  * Watch

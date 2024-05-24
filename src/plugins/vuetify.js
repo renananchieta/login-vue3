@@ -35,9 +35,10 @@ const temaPadraoEscuro = {
 const temaPadraoClaro = {
   dark: false,
   colors: {
-      background: '#ECEFF1',
+      background: '#CFD8DC',
       primary: '#01579B',
       botao: '#3700B3',
+      selectedColor: '#03A9F4',
       // surface: '#EFEBE9',
       //     'primary-darken-1': '#3700B3',
       //     secondary: '#03DAC6',

@@ -1,10 +1,10 @@
 <template>
-    <v-list density="compact">
-            <v-list-item
+    <v-list density="compact"> 
+            <v-list-item 
                 v-for="(item, i) in items"
                 :key="i"
                 :value="item"
-                color="primary"
+                color="selectedColor"
             >
                 <template v-slot:prepend>
                 <v-icon :icon="item.icon"></v-icon>
