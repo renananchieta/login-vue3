@@ -161,7 +161,6 @@ onBeforeMount(async() => {
 
   api.get("/usuario-info", params)
   .then((response) => {
-    console.log(response.data);
     store.usuario.nome = response.data.nome;
     store.usuario.email = response.data.email;
     abrirSessaoOuUrl("/home")

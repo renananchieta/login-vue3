@@ -6,16 +6,17 @@
         <slot />
         </v-card-text>
         <v-card-actions class="pa-3">
-        <v-btn
-          class="text-capitalize"
-          density="default"
-          variant="elevated"
-          color="blue"
-          @click="enviarDadosPequisa"
-          :loading="carregando">
-            <v-icon left> mdi-magnify </v-icon>
-            Pesquisar
-        </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+            class="text-capitalize"
+            density="default"
+            variant="elevated"
+            color="primary"
+            @click="enviarDadosPequisa"
+            :loading="carregando">
+                <v-icon left> mdi-magnify </v-icon>
+                PESQUISAR
+            </v-btn>
         </v-card-actions>
     </v-card>
 </template>
